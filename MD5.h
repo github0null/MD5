@@ -1,12 +1,11 @@
 #ifndef _H_MD5
 #define _H_MD5
 
-#include <memory.h>
 #include <string.h>
-#include <stdio.h>
+#include <stdint.h>
 
-typedef char MD5VALUE[33];
+typedef char MD5_RESULT[33];
 
-char *MD5(char *input, uint32_t inputSize, MD5VALUE outputBuffer);
+char *MD5(uint8_t *input, uint32_t inputSize, MD5_RESULT outputBuffer);
 
 #endif

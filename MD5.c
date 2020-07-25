@@ -1,5 +1,3 @@
-#define MD5_EXPORT
-
 #include "md5.h"
 
 typedef struct
@@ -210,10 +208,12 @@ typedef char HEXBUFFER[2];
 void int2hex(uint8_t value, HEXBUFFER buf)
 {
     uint8_t high = value / 16;
-    uint8_t high = value / 16;
+    uint8_t low = value % 16;
+    buf[0] = (high > 9 ? 87 : 48) + high;
+    buf[1] = (low > 9 ? 87 : 48) + low;
 }
 
-char *MD5(uint8_t *input, uint32_t inputSize, MD5VALUE outputBuffer)
+char *MD5(uint8_t *input, uint32_t inputSize, MD5_RESULT outputBuffer)
 {
     MD5_CTX md5;
     uint8_t value[16];
@@ -221,8 +221,8 @@ char *MD5(uint8_t *input, uint32_t inputSize, MD5VALUE outputBuffer)
     MD5Update(&md5, input, inputSize);
     MD5Final(&md5, value);
     char *ptr = outputBuffer;
-    for (uint32_t i = 0; i < 16; i++, ptr += 2)
-        sprintf_s(ptr, 3, "%02x", value[i]);
+    for (uint8_t i = 0; i < 16; i++, ptr += 2)
+        int2hex(value[i], ptr);
     *ptr = '\0';
     return outputBuffer;
 }
