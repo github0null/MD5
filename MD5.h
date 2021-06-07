@@ -6,6 +6,6 @@
 
 typedef char MD5_RESULT[33];
 
-char *MD5(uint8_t *input, uint32_t inputSize, MD5_RESULT outputBuffer);
+char *MD5(uint8_t *input, uint32_t size, MD5_RESULT outputBuffer);
 
 #endif
